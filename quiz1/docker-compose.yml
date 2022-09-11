@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  # Instance 1
+ nginx1:
+    image: nginx_alpine_sutiwat
+    container_name: instance1_nginx
+    restart: always
+    ports:
+      - 80:80
+    networks:
+      - train_docker
+  # Instance 2
+ nginx2:
+    image: nginx:alpine
+    container_name: instance2_nginx
+    restart: always
+    volumes:
+      - ./instance2/:/usr/share/nginx/html
+    ports:
+      - 82:80
+    networks:
+      - train_docker
+networks:
+  train_docker:
+
+
+

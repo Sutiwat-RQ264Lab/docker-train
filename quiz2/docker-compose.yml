@@ -1,0 +1,51 @@
+version: '3'
+
+services:
+  # Reverse Proxy
+ nginx_reverse_proxy:
+    image: nginx:alpine
+    container_name: reverse_proxy_nginx
+    restart: always
+    volumes:
+      - ./conf/:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    networks:
+      - train_docker
+  # Web on NGINX
+ nginx_local:
+    image: nginx:alpine
+    container_name: www_local_nginx
+    restart: always
+    volumes:
+      - ./www/:/usr/share/nginx/html
+    ports:
+      - 8080:80
+    networks:
+      - train_docker
+ nginx_www1:
+    image: nginx:alpine
+    container_name: www1_nginx
+    restart: always
+    volumes:
+      - ./www/web1:/usr/share/nginx/html
+    ports:
+      - 8181:80
+    networks:
+      - train_docker
+ nginx_www2:
+    image: nginx:alpine
+    container_name: www2_nginx
+    restart: always
+    volumes:
+      - ./www/web2:/usr/share/nginx/html
+    ports:
+      - 8282:80
+    networks:
+      - train_docker
+
+networks:
+  train_docker:
+
+
+
